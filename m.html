@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul scientifique pour mathemathique avancé</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mi.css">
+</head>
+<body>
+    <style>
+        .navbar-gradient {
+            background: linear-gradient(to right, #071d9b, #8aa214); 
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-gradient">
+        <div class="spinner-grow spinner-grow-sm custom-spinner" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="statistique.html">Accueil</a>
+                    </li>
+                    <a class="navbar-brand" href="index.html">Fonctionnalités </a>
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">À propos</a>
+                    </li>
+                </ul>
+                <div class="clearfix">
+                  </div>
+            </div>
+        </div>
+    </nav>
+    
+    <h3 id="mv">Calcul scientifique pour mathemathique avancé </h3>
+    <h2 id="al">Algebre linéaire: Calcul Matriciel & Vectoriel</h2>
+    <div class="container">
+        <h1 class="text-center">Calcul Matriciel</h1>
+        <p class="text-center">Vérifiez si une matrice de taille 3x3 est inversible et calculez son inverse et sa transposée.</p>
+        <form id="matrixForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="a11">(1,1)</label>
+                    <input type="number" class="form-control" id="a11" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a12">(1,2)</label>
+                    <input type="number" class="form-control" id="a12" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a13">(1,3)</label>
+                    <input type="number" class="form-control" id="a13" required>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <label for="a21">(2,1)</label>
+                    <input type="number" class="form-control" id="a21" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a22">(2,2)</label>
+                    <input type="number" class="form-control" id="a22" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a23">(2,3)</label>
+                    <input type="number" class="form-control" id="a23" required>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <label for="a31">(3,1)</label>
+                    <input type="number" class="form-control" id="a31" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a32">(3,2)</label>
+                    <input type="number" class="form-control" id="a32" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="a33">(3,3)</label>
+                    <input type="number" class="form-control" id="a33" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Calculer</button>
+        </form>
+        
+        <h2 class="mt-4">Résultats :</h2>
+        <ul>
+            <li><strong>Déterminant :</strong> <span id="determinant">-</span></li>
+            <li><strong>Matrice Inverse :</strong> <pre id="inverseMatrix">-</pre></li>
+            <li><strong>Matrice Transposée :</strong> <pre id="transposeMatrix">-</pre></li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('matrixForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Récupérer les valeurs de la matrice
+            const a11 = parseFloat(document.getElementById('a11').value);
+            const a12 = parseFloat(document.getElementById('a12').value);
+            const a13 = parseFloat(document.getElementById('a13').value);
+            const a21 = parseFloat(document.getElementById('a21').value);
+            const a22 = parseFloat(document.getElementById('a22').value);
+            const a23 = parseFloat(document.getElementById('a23').value);
+            const a31 = parseFloat(document.getElementById('a31').value);
+            const a32 = parseFloat(document.getElementById('a32').value);
+            const a33 = parseFloat(document.getElementById('a33').value);
+
+            // Calcul du déterminant
+            const determinant = 
+                a11 * (a22 * a33 - a23 * a32) -
+                a12 * (a21 * a33 - a23 * a31) +
+                a13 * (a21 * a32 - a22 * a31);
+
+            document.getElementById('determinant').textContent = determinant.toFixed(3);
+
+            if (determinant === 0) {
+                document.getElementById('inverseMatrix').textContent = "La matrice n'est pas inversible.";
+                document.getElementById('transposeMatrix').textContent = "Impossible de calculer la transposée (car matrice non inversible).";
+            } else {
+                // Calcul des cofacteurs
+                const cofactors = [
+                    [
+                        (a22 * a33 - a23 * a32),
+                        -(a21 * a33 - a23 * a31),
+                        (a21 * a32 - a22 * a31)
+                    ],
+                    [
+                        -(a12 * a33 - a13 * a32),
+                        (a11 * a33 - a13 * a31),
+                        -(a11 * a32 - a12 * a31)
+                    ],
+                    [
+                        (a12 * a23 - a13 * a22),
+                        -(a11 * a23 - a13 * a21),
+                        (a11 * a22 - a12 * a21)
+                    ]
+                ];
+
+                // Transposer et diviser par le déterminant pour obtenir l'inverse
+                const inverse = cofactors[0].map((_, colIndex) =>
+                    cofactors.map(row => row[colIndex] / determinant)
+                );
+
+                // Calcul de la transposée
+                const transpose = [
+                    [a11, a21, a31],
+                    [a12, a22, a32],
+                    [a13, a23, a33]
+                ];
+
+                // Affichage de la matrice inverse
+                let inverseString = "";
+                inverse.forEach(row => {
+                    inverseString += row.map(val => val.toFixed(3)).join("\t") + "\n";
+                });
+                document.getElementById('inverseMatrix').textContent = inverseString;
+
+                // Affichage de la matrice transposée
+                let transposeString = "";
+                transpose.forEach(row => {
+                    transposeString += row.join("\t") + "\n";
+                });
+                document.getElementById('transposeMatrix').textContent = transposeString;
+            }
+        });
+    </script>
+    <div class="container">
+        <h1 class="text-center">Opérations Vectorielles</h1>
+        <p class="text-center">Effectuez le produit scalaire, addition, soustraction et norme de deux vecteurs.</p>
+        <form id="vectorForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="vector1">Vecteur 1 (séparé par des virgules) :</label>
+                    <input type="text" class="form-control" id="vector1" placeholder="Ex : 1,2,3" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="vector2">Vecteur 2 (séparé par des virgules) :</label>
+                    <input type="text" class="form-control" id="vector2" placeholder="Ex : 4,5,6" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Calculer</button>
+        </form>
+
+        <h2 class="mt-4">Résultats :</h2>
+        <ul>
+            <li><strong>Produit Scalaire :</strong> <span id="dotProduct">-</span></li>
+            <li><strong>Addition :</strong> <pre id="vectorSum">-</pre></li>
+            <li><strong>Soustraction :</strong> <pre id="vectorDifference">-</pre></li>
+            <li><strong>Norme du Vecteur 1 :</strong> <span id="norm1">-</span></li>
+            <li><strong>Norme du Vecteur 2 :</strong> <span id="norm2">-</span></li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById("vectorForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const vec1 = document.getElementById("vector1").value.split(',').map(Number);
+            const vec2 = document.getElementById("vector2").value.split(',').map(Number);
+
+            if (vec1.length !== vec2.length) {
+                alert("Les vecteurs doivent avoir la même dimension.");
+                return;
+            }
+
+            // Calcul du produit scalaire
+            const dotProduct = vec1.reduce((sum, val, idx) => sum + val * vec2[idx], 0);
+
+            // Addition des vecteurs
+            const vectorSum = vec1.map((val, idx) => val + vec2[idx]);
+
+            // Soustraction des vecteurs
+            const vectorDifference = vec1.map((val, idx) => val - vec2[idx]);
+
+            // Norme des vecteurs
+            const norm1 = Math.sqrt(vec1.reduce((sum, val) => sum + val ** 2, 0));
+            const norm2 = Math.sqrt(vec2.reduce((sum, val) => sum + val ** 2, 0));
+
+            // Affichage des résultats
+            document.getElementById("dotProduct").textContent = dotProduct;
+            document.getElementById("vectorSum").textContent = `[${vectorSum.join(', ')}]`;
+            document.getElementById("vectorDifference").textContent = `[${vectorDifference.join(', ')}]`;
+            document.getElementById("norm1").textContent = norm1.toFixed(2);
+            document.getElementById("norm2").textContent = norm2.toFixed(2);
+        });
+    </script>
+    <h2 id="ai">Analyse: Calcul d'integral & Serie </h2>
+    <div class="containera">
+        <h1 class="text-center mt-4">Calcul d'Intégrales</h1>
+        <form id="integralForm">
+            <div class="form-group">
+                <label for="function">Fonction à intégrer :</label>
+                <select class="form-control" id="function">
+                    <option value="sin(x)">sin(x)</option>
+                    <option value="cos(x)">cos(x)</option>
+                    <option value="exp(x)">exp(x)</option>
+                    <option value="ln(x)">ln(x)</option>
+                    <option value="x^2">x^2</option>
+                    <option value="x^3">x^3</option>
+                    <option value="tan(x)">tan(x)</option>
+                    <option value="sec(x)">sec(x)</option>
+                    <option value="cosec(x)">cosec(x)</option>
+                    <option value="arcsin(x)">arcsin(x)</option>
+                    <option value="arccos(x)">arccos(x)</option>
+                    <option value="arctan(x)">arctan(x)</option>
+                    <option value="polynomial">Polynôme x^n</option>
+                </select>
+            </div>
+
+            <div id="polynomialPower" class="form-group" style="display: none;">
+                <label for="power">Choisir la puissance n de x^n :</label>
+                <input type="number" class="form-control" id="power" placeholder="Entrez la puissance (n)">
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="lowerBound">Borne Inférieure :</label>
+                    <input type="number" class="form-control" id="lowerBound" placeholder="Laissez vide pour indéfinie">
+                </div>
+                <div class="col">
+                    <label for="upperBound">Borne Supérieure :</label>
+                    <input type="number" class="form-control" id="upperBound" placeholder="Laissez vide pour indéfinie">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Calculer l'Intégrale</button>
+        </form>
+
+        <h2 class="mt-4">Résultat :</h2>
+        <p><strong>Intégrale :</strong> <span id="integralResult">-</span></p>
+    </div>
+
+    <script>
+        // Fonction pour évaluer les fonctions mathématiques
+        function evaluateFunction(func, x, power) {
+            switch (func) {
+                case 'sin(x)': return Math.sin(x);
+                case 'cos(x)': return Math.cos(x);
+                case 'exp(x)': return Math.exp(x);
+                case 'ln(x)': return x > 0 ? Math.log(x) : NaN; // ln(x) est défini pour x > 0
+                case 'x^2': return Math.pow(x, 2);
+                case 'x^3': return Math.pow(x, 3);
+                case 'tan(x)': return Math.tan(x);
+                case 'sec(x)': return 1 / Math.cos(x); // sec(x) = 1 / cos(x)
+                case 'cosec(x)': return 1 / Math.sin(x); // cosec(x) = 1 / sin(x)
+                case 'arcsin(x)': return (x >= -1 && x <= 1) ? Math.asin(x) : NaN; // arcsin(x) défini pour x ∈ [-1, 1]
+                case 'arccos(x)': return (x >= -1 && x <= 1) ? Math.acos(x) : NaN; // arccos(x) défini pour x ∈ [-1, 1]
+                case 'arctan(x)': return Math.atan(x); // arctan(x) défini pour tout x
+                case 'polynomial': return Math.pow(x, power); // x^n pour un power donné
+                default: return NaN;
+            }
+        }
+
+        // Fonction pour calculer l'intégrale avec la méthode des rectangles
+        function calculateIntegral(func, lower, upper, numIntervals, power) {
+            const step = (upper - lower) / numIntervals;
+            let integral = 0;
+
+            // Utilisation de la méthode des rectangles
+            for (let i = 0; i < numIntervals; i++) {
+                let x = lower + i * step;
+                integral += evaluateFunction(func, x, power) * step;
+            }
+
+            return integral;
+        }
+
+        // Afficher le champ de saisie pour la puissance si le polynôme est choisi
+        document.getElementById("function").addEventListener("change", function() {
+            const selectedFunction = this.value;
+            const powerField = document.getElementById("polynomialPower");
+
+            if (selectedFunction === "polynomial") {
+                powerField.style.display = "block"; // Afficher le champ pour entrer la puissance
+            } else {
+                powerField.style.display = "none"; // Masquer le champ si une autre fonction est choisie
+            }
+        });
+
+        // Traitement du formulaire
+        document.getElementById("integralForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Récupérer la fonction choisie et les bornes
+            const func = document.getElementById("function").value;
+            const lower = parseFloat(document.getElementById("lowerBound").value) || 0;
+            const upper = parseFloat(document.getElementById("upperBound").value) || 1;
+            const numIntervals = 1000; // Plus d'intervalles pour plus de précision
+
+            // Récupérer la puissance pour le polynôme
+            const power = (func === "polynomial") ? parseFloat(document.getElementById("power").value) : null;
+
+            // Calculer l'intégrale
+            const result = calculateIntegral(func, lower, upper, numIntervals, power);
+
+            // Afficher le résultat
+            document.getElementById("integralResult").textContent = result.toFixed(4);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+body{
+    background-image: url("pm.webp");
+    
+}
+        .container {
+            max-width: 800px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to right, #c0971b, #2ad335); 
+            padding: 20px;
+            margin-top: 10px;}
+            .containera {
+                max-width: 800px;
+                margin: auto; 
+                 background: linear-gradient(to right, #288ed7, #ce3aae);
+                  
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                margin-top: 10px;}
+        
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .navbar-nav .nav-item {
+            margin-right: 20px; 
+        }
+        
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0; 
+        }
+#mv{ 
+    text-align: center;
+    background-color: black;
+    color: #eee;
+    
+}
+#al{
+   
+        color: rgb(155, 10, 10); /* Texte blanc cassé */
+        display: inline-block;
+        background: linear-gradient(to right, #e3d14d, #42a614); /* Dégradé bleu-vert */
+        background-size: 400% 400%;
+        animation: gradientAnimation 2s ease infinite; /* Animation plus douce */
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        border-radius: 8px; /* Coins arrondis */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+      }
+      
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+ #ai{
+    color: rgb(155, 10, 10); /* Texte blanc cassé */
+    display: inline-block;
+    background: linear-gradient(to right, #288ed7, #ce3aae); /* Dégradé bleu-vert */
+    background-size: 400% 400%;
+    animation: gradientAnimation 2s ease infinite; /* Animation plus douce */
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+    
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+ }
+/* Style personnalisé pour le spinner */
+.custom-spinner {
+    color: #93b012; /* Couleur personnalisée, ici un orange vif */
+    position: relative;
+  }
+  
